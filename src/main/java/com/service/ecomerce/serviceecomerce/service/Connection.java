@@ -4,7 +4,6 @@ import com.service.ecomerce.serviceecomerce.model.AllPost;
 import com.service.ecomerce.serviceecomerce.model.Post;
 import com.service.ecomerce.serviceecomerce.model.SinglePostInfo;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,21 +18,21 @@ public class Connection {
     }
 
     public Post get(String id){
-        return restTemplate.getForObject("https://b8f6da89-9c7b-45c8-bf04-c800ae3cf7bf-bluemix.cloudant.com/client/"+id,Post.class);
+        return restTemplate.getForObject("https://b8f6da89-9c7b-45c8-bf04-c800ae3cf7bf-bluemix.cloudant.com/produit/"+id,Post.class);
     }
 
     public Post[] getAll(){
-        AllPost allPost=  restTemplate.getForObject("https://b8f6da89-9c7b-45c8-bf04-c800ae3cf7bf-bluemix.cloudant.com/client/_all_docs",AllPost.class);
+        AllPost allPost=  restTemplate.getForObject("https://b8f6da89-9c7b-45c8-bf04-c800ae3cf7bf-bluemix.cloudant.com/produit/_all_docs?include_docs=true",AllPost.class);
         Post[] tabPost=new  Post[allPost.getTotal_rows()];
         SinglePostInfo[] tabInfo=allPost.getRows();
         for(int i=0;i<tabPost.length;i++){
-            tabPost[i]=get(tabInfo[i].getId());
+            tabPost[i]=(tabInfo[i].getDoc());
         }
         return tabPost;
     }
 
     public String post(Post post){
-        return restTemplate.postForObject("https://b8f6da89-9c7b-45c8-bf04-c800ae3cf7bf-bluemix.cloudant.com/client",post,String.class);
+        return restTemplate.postForObject("https://b8f6da89-9c7b-45c8-bf04-c800ae3cf7bf-bluemix.cloudant.com/produit",post,String.class);
 
     }
 
