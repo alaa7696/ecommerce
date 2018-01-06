@@ -3,16 +3,25 @@ package com.service.ecomerce.serviceecomerce.model;
 public class Post {
 
     String _id;
+    String _rev;
     String name;
     String age;
     public Post(){};
 
-    public String getId() {
+    public String get_id() {
         return _id;
     }
 
-    public void setId(String id) {
-        this._id = id;
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String get_rev() {
+        return _rev;
+    }
+
+    public void set_rev(String _rev) {
+        this._rev = _rev;
     }
 
     public String getName() {
